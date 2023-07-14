@@ -1,2 +1,2 @@
 # MixtureVAEs
-Repo for reproduction of the paper "Learning with MISELBO: The Mixture Cookbook"
+Repo for reproduction of the ICML 2023 publication "Cooperation in the Latent Space: The Benefits of Adding Mixture Components in Variational Autoencoders".
