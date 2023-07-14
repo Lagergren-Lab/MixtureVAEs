@@ -15,15 +15,17 @@ class EnsembleIAFs(nn.Module):
         self.S = S
         self.flow_ensemble = nn.ModuleList([
             NIAFEncoder(device=device, seed=seed, T=T, nh=nh, arg_class=arg_class, dim=dim).to(self.device)
-            for _ in range(S)
+            # for _ in range(S)
         ])
 
     def forward(self, z_s):
         # input s'th sample and run it thru iaf for all j
         zT_sj = torch.zeros((z_s.shape[0], z_s.shape[1], self.S, z_s.shape[-1]), device=self.device)
         log_detT_sj = torch.zeros((z_s.shape[0], z_s.shape[1], self.S), device=self.device)
-        for j, iaf in enumerate(self.flow_ensemble):
-            zT_sj[..., j, :], log_detT_sj[..., j] = iaf.encode(z_s)
+        # for j, iaf in enumerate(self.flow_ensemble):
+        #     zT_sj[..., j, :], log_detT_sj[..., j] = iaf.encode(z_s)
+        for j in range(self.S):
+            zT_sj[..., j, :], log_detT_sj[..., j] = self.flow_ensemble[0].encode(z_s)
         return zT_sj, log_detT_sj
 
 
